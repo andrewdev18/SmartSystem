@@ -1,0 +1,22 @@
+<h2>{{currentQuestion.instruction}}</h2>
+
+<div class="sentence-container">
+    <div *ngFor="let item of contentList" class="sentence-part">
+        <div *ngIf="item.isAnswer; else textElement">
+            <div class="sentence-part">
+                <button pButton class="p-button-secondary">
+                    {{item.correctOpt}}
+                </button>
+                <span>/</span>
+                <button pButton class="p-button-secondary">
+                    {{item.wrongOpt}}
+                </button>
+            </div>
+        </div>
+        <ng-template class="sentence-part" #textElement>
+            <div class="sentence-part">
+                <span>{{item.text}}</span>
+            </div>
+        </ng-template>
+    </div>
+</div>

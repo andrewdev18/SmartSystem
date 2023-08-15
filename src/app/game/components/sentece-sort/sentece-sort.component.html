@@ -1,0 +1,22 @@
+<div class="flex flex-wrap gap-2 justify-content-center my-5">
+    <div class="flex flex-wrap w-5rem h-3rem border-round-lg surface-800 justify-content-center" pDroppable
+        (onDrop)="drop(i)" *ngFor="let item of answers; let i = index;">
+        <div class="w-full h-2 flex flex-wrap justify-content-center align-content-center">
+            <span class="p-0">{{item.word?.text}}</span>
+        </div>
+    </div>
+    <div class="flex flex-wrap h-3rem align-content-end p-0">
+        <span class="text-900">.</span>
+    </div>
+</div>
+
+<div class="flex flex-wrap gap-3 justify-content-center">
+    <div class="flex flex-wrap" *ngFor="let item of content">
+        <p-chip [label]="item.word?.text ? item.word!.text : ''" pDraggable (onDragStart)="dragStart(item)"
+            (onDragEnd)="dragEnd()" styleClass="font-bold"></p-chip>
+    </div>
+</div>
+
+<div style="display: flex; justify-content: center; width: 100%; margin-top: 2rem;">
+    <p-button label="Check answer" styleClass="p-button-info" icon="pi pi-check"></p-button>
+</div>

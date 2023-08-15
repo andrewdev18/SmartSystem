@@ -1,0 +1,13 @@
+<div class="sentence-container">
+    <div class="sentence-container" *ngFor="let item of content">
+        <div class="sentence-part" *ngIf="!item.isAnswer; else wordComplete">
+            <span>{{item.text}}</span>
+        </div>
+        <ng-template class="sentence-part" #wordComplete>
+            <input type="text" pInputText [(ngModel)]="item.text"/>
+        </ng-template>
+    </div>
+</div>
+<div style="display: flex; justify-content: center; width: 100%; margin-top: 2rem;">
+    <p-button label="Check answer" styleClass="p-button-info" icon="pi pi-check"></p-button>
+</div>

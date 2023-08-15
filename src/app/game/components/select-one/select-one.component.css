@@ -1,0 +1,19 @@
+.sentence-part {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    font-size: 1.5rem;
+}
+
+.sentence-container {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+input {
+    text-align: center;
+    width: 10rem;
+    font-size: 20px;
+    
+}

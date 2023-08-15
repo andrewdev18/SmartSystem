@@ -1,0 +1,23 @@
+<div class="sentence-container">
+    <div class="sentence-container" *ngFor="let item of content">
+        <div class="sentence-part" *ngIf="!item.isAnswer; else wordComplete">
+            <span>{{item.text}}</span>
+        </div>
+        <ng-template class="sentence-part" #wordComplete>
+            <input type="text" readonly pInputText [(ngModel)]="selectedOption.text"/>
+        </ng-template>
+    </div>
+</div>
+
+<div class="flex flex-wrap justify-content-center sentence-container my-2">
+    <div class="flex flex-wrap">
+        <div *ngFor="let item of options" class="field-checkbox p-2 mx-2">
+            <p-radioButton [(ngModel)]="selectedOption.text" name="option" [inputId]="item.text" [value]="item.text"></p-radioButton>
+            <label [for]="item.text">{{item.text}}</label>
+        </div>
+    </div>
+</div>
+
+<div class="w-full flex justify-content-center">
+    <p-button label="Check answer" styleClass="p-button-info" icon="pi pi-check"></p-button>
+</div>
