@@ -1,13 +1,38 @@
-<h2 style="margin-left: 1rem;">Ejercicio - Exercise</h2>
-<hr style="margin-top: 2rem; margin-bottom: 2rem;">
-<app-word-complete></app-word-complete>
-<hr style="margin-top: 2rem; margin-bottom: 2rem;">
-<app-choose-option></app-choose-option>
-<hr style="margin-top: 2rem; margin-bottom: 2rem;">
-<app-select-one></app-select-one>
-<hr style="margin-top: 2rem; margin-bottom: 2rem;">
-<app-sentece-sort></app-sentece-sort>
+<div class="flex flex-wrap">
+    <div class="w-6">
+        <h2 style="margin-left: 1rem;">Exercise</h2>
+        <h3 style="margin-left: 1rem;">Topic: {{ topic!.title }}</h3>
+    </div>
+    <div class="w-6 justify-content-right text-right">
+        <div class="flex flex-wrap mr-1 justify-content-end align-content-center">
+            <h2 class="inline mr-2 mb-1">Topic level: </h2>
+            <p-tag styleClass="mt-4" [value]="getDifficulty()" [severity]="getSeverity()"></p-tag>
+        </div>
+        <p style="margin-right: 1rem;">Question Difficulty: {{ question!.difficulty * 100 | number:'1.0-0' }}</p>
+    </div>
+</div>
+<hr class="mt-1 mb-5">
+
+<span [ngSwitch]="question?.type">
+    <div *ngSwitchCase="0">
+        <app-word-complete [question]="question!" (onResolve)="getNextQuestion($event)"></app-word-complete>
+    </div>
+    <div *ngSwitchCase="1">
+        <app-choose-option [question]="question!" (onResolve)="getNextQuestion($event)"></app-choose-option>
+    </div>
+    <div *ngSwitchCase="2">
+        <app-sentece-sort [question]="question!" (onResolve)="getNextQuestion($event)"></app-sentece-sort>
+    </div>
+    <div *ngSwitchCase="3">
+        <app-select-one [question]="question!" (onResolve)="getNextQuestion($event)"></app-select-one>
+    </div>
+    <div *ngSwitchDefault>
+        <p>No se ha encontrado una pregunta</p>
+    </div>
+</span>
+
+
 <hr style="margin-top: 2rem; margin-bottom: 2rem;">
 <div style="display: flex; justify-content: center">
-    <p-button label="Watch lesson"></p-button>
+    <p-button label="Watch lesson" styleClass="p-button-secondary" (onClick)="goToLesson()"></p-button>
 </div>

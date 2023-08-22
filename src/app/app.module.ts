@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { GameModule } from './game/game.module';
 import { LessonsModule } from './lessons/lessons.module';
 import { PrimengModule } from './ui-module/primeng.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { PrimengModule } from './ui-module/primeng.module';
     BrowserAnimationsModule,
     FormsModule,
     AppRoutingModule,
+    HttpClientModule,
     GameModule,
     LessonsModule,
     PrimengModule

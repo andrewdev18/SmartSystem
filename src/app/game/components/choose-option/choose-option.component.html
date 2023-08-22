@@ -1,15 +1,15 @@
-<h2>{{currentQuestion.instruction}}</h2>
+<h2>{{_question?.instruction}}</h2>
 
 <div class="sentence-container">
     <div *ngFor="let item of contentList" class="sentence-part">
         <div *ngIf="item.isAnswer; else textElement">
             <div class="sentence-part">
-                <button pButton class="p-button-secondary">
-                    {{item.correctOpt}}
+                <button pButton class="p-button-secondary justify-content-center" style="min-width: 3rem;" (click)="checkAnswer(0)">
+                    {{options[0].text}}
                 </button>
                 <span>/</span>
-                <button pButton class="p-button-secondary">
-                    {{item.wrongOpt}}
+                <button pButton class="p-button-secondary justify-content-center" style="min-width: 3rem;" (click)="checkAnswer(1)">
+                    {{options[1].text}}
                 </button>
             </div>
         </div>

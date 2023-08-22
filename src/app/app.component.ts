@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Question } from './game/question.class';
 import { MenuItem, PrimeIcons } from 'primeng/api';
 @Component({
   selector: 'app-root',

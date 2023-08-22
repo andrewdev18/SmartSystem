@@ -1,26 +1,24 @@
-import { Question } from "./question.class";
+// import { Question } from "./question.class";
 
 export interface GameTree {
-    topics: TopicNode[];
-}
-
-export interface TopicNode {
-    topic: Topic;
-    difficulty: number;
-    rootNode: QuestionNode;
+    topics: Topic[];
 }
 
 export interface Topic {
     title: string;
     content: string;
     examples: string[];
+    difficulty: number;
+    rootNode?: Question;
 }
 
-export interface QuestionNode {
-    question: Question;
+export interface Question {
+    instruction: string;
+    content?: QWordComplete[] | QChooseOption[] | QSortSentece[] | QSelectOne[];
+    type: QuestionType;
     difficulty: number;
-    easierQuestion?: QuestionNode;
-    harderQuestion?: QuestionNode;
+    easierQuestion?: Question;
+    harderQuestion?: Question;
 }
 
 export enum QuestionType {

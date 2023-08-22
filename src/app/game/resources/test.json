@@ -1,0 +1,97 @@
+[
+    {
+        "instruction": "Complete the sentence with the correct words.",
+        "type": 0,
+        "difficulty": 0.7,
+        "content": [
+            {
+                "text": "I",
+                "isAnswer": false
+            },
+            {
+                "text": "",
+                "isAnswer": true,
+                "answers": [
+                    "am",
+                    "'m"
+                ]
+            },
+            {
+                "text": "a professional soccer player. My brother",
+                "isAnswer": false
+            },
+            {
+                "text": "",
+                "isAnswer": false,
+                "answers": [
+                    "plays"
+                ]
+            },
+            {
+                "text": "soccer too.",
+                "isAnswer": false
+            }
+        ]
+    },
+    {
+        "instruction": "Select the correct option.",
+        "type": 1,
+        "difficulty": 0.25,
+        "content": [
+            {
+                "text": "Your friends",
+                "isAnswer": false
+            },
+            {
+                "text": "",
+                "isAnswer": true,
+                "correctOpt": "are",
+                "wrongOpt": "is"
+            },
+            {
+                "text": "big Coldplay's fans.",
+                "isAnswer": false
+            }
+        ]
+    },
+    {
+        "instruction": "Select the correct option.",
+        "type": 1,
+        "difficulty": 0.2,
+        "content": [
+            {
+                "text": "Your sister",
+                "isAnswer": false
+            },
+            {
+                "text": "",
+                "isAnswer": true,
+                "correctOpt": "is",
+                "wrongOpt": "are"
+            },
+            {
+                "text": "a great doctor.",
+                "isAnswer": false
+            }
+        ]
+    },
+    {
+        "instruction": "Put the words/phrases in correct order.",
+        "type": 2,
+        "difficulty": 0.4,
+        "content": [
+            {
+                "text": "Tom and Katy",
+                "position": 0
+            },
+            {
+                "text": "aren't",
+                "position": 1
+            },
+            {
+                "text": "in the same class.",
+                "position": 2
+            }
+        ]
+    }
+]

@@ -1,24 +1,40 @@
-import { Component } from '@angular/core';
-import { QSortSentece } from '../../game.interfaces';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { QSortSentece, Question } from '../../game.interfaces';
 
 @Component({
   selector: 'app-sentece-sort',
   templateUrl: './sentece-sort.component.html',
   styleUrls: ['./sentece-sort.component.css']
 })
-export class SenteceSortComponent {
-  content: Answer[] = [
-    { index: 0, word: { text: 'This', position: 0 } },
-    { index: 1, word: { text: 'is', position: 1 } },
-    { index: 2, word: { text: 'a', position: 2 } },
-    { index: 3, word: { text: 'test', position: 3 } }
-  ];
+export class SenteceSortComponent implements OnInit {
+  content: Answer[] = [];
+  answers: Answer[] = [];
 
   draggedWord: Answer | undefined | null;
 
-  answers: Answer[] = [];
+  @Output() onResolve: EventEmitter<any> = new EventEmitter();
 
   constructor() {
+  }
+
+  ngOnInit(): void {
+  }
+
+  @Input() set question(qst: Question) {
+    let questions: QSortSentece[] = <QSortSentece[]>(qst.content!);
+    this.content = [];
+    let index: number = 0;
+    let rnd: number = 0;
+    while (questions.length > 0) {
+      rnd = Math.round((questions.length - 1) * Math.random());
+      this.content.push({ index: index, word: questions[rnd] });
+      questions.splice(rnd, 1);
+      index++;
+    }
+    this.setAnswerBoxes();
+  }
+
+  setAnswerBoxes() {
     this.content.forEach((element, index) => {
       this.answers.push({ word: undefined, index: index });
     });
@@ -37,6 +53,20 @@ export class SenteceSortComponent {
 
   dragEnd() {
     this.draggedWord = null;
+  }
+
+  checkAnswer() {
+    let isCorrect: boolean = true;
+    this.answers.forEach(element => {
+      if (element.index != element.word!.position) {
+        isCorrect = false;
+      }
+    });
+    if (isCorrect) {
+      this.onResolve.emit(true);
+    } else {
+      this.onResolve.emit(false);
+    }
   }
 }
 
