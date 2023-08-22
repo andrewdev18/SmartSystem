@@ -6,10 +6,14 @@ import { MenuItem, PrimeIcons } from 'primeng/api';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  constructor() {
+  }
+
   items: MenuItem[] = [
     {
       label: 'Inicio',
       icon: PrimeIcons.HOME,
+      routerLink: 'home',
       command() {
         console.log('Inicio')
       },
@@ -17,6 +21,7 @@ export class AppComponent {
     {
       label: 'Lecciones',
       icon: PrimeIcons.BOOK,
+      routerLink: 'lessons',
       command() {
         console.log('Lecciones')
       },
@@ -24,6 +29,7 @@ export class AppComponent {
     {
       label: 'Ejercicios',
       icon: PrimeIcons.BOOKMARK_FILL,
+      routerLink: 'games',
       command() {
         console.log('Ejercicios')
       },

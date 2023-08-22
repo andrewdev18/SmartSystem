@@ -9,10 +9,12 @@ import { GameModule } from './game/game.module';
 import { LessonsModule } from './lessons/lessons.module';
 import { PrimengModule } from './ui-module/primeng.module';
 import { HttpClientModule } from '@angular/common/http';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
