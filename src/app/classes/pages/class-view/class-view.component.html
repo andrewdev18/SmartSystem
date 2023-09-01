@@ -1,1 +1,11 @@
-<p>class-view works!</p>
+<h1 class="ml-3">Estudiantes</h1>
+<div class="flex flex-wrap">
+    <div *ngFor="let student of students" class="w-6 p-3">
+        <div class="border-white border-solid border-round-md p-3 flex align-items-center">
+            <h2 class="my-1 inline">{{student.name}}</h2>
+            <span style="flex: 1 1 auto;"></span>
+            <h3 class="my-1 inline">Level: </h3>
+            <h4 class="my-1 inline w-2rem text-right">{{student.level}}</h4>
+        </div>
+    </div>
+</div>

@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Topic } from 'src/app/game/game.interfaces';
 import { LessonService } from '../../services/lesson.service';
-import { Observable, map } from 'rxjs';
 
 @Component({
   selector: 'app-lesson-view',

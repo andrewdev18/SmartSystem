@@ -3,8 +3,8 @@
     {
       "id": 1,
       "class": 1,
-      "level": 10,
-      "name": "Student 1",
+      "level": 30,
+      "name": "Rafael Mesa",
       "password": "user1234",
       "role": "student",
       "username": "student1"
@@ -15,12 +15,44 @@
       "password": "user1234",
       "role": "teacher",
       "username": "teacher1"
+    },
+    {
+      "id": 3,
+      "class": 1,
+      "level": 10,
+      "name": "Marcus Eriksson",
+      "password": "user1234",
+      "role": "student",
+      "username": "student2"
+    },
+    {
+      "id": 4,
+      "class": 2,
+      "level": 50,
+      "name": "Jessica Buestan",
+      "password": "user1234",
+      "role": "student",
+      "username": "student3"
+    },
+    {
+      "id": 5,
+      "class": 2,
+      "level": 60,
+      "name": "Erika Rodríguez",
+      "password": "user1234",
+      "role": "student",
+      "username": "student4"
     }
   ],
   "classes": [
     {
       "id": 1,
       "name": "1ro BGU",
+      "teacher": 1
+    },
+    {
+      "id": 2,
+      "name": "2do BGU",
       "teacher": 1
     }
   ]

@@ -8,4 +8,5 @@ export const environment = {
     messagingSenderId: '218414254629',
     measurementId: 'G-YELWM4Y419',
   },
+  apiUrl: "https://my-json-server.typicode.com/andrewdev18/SmartSystem"
 };

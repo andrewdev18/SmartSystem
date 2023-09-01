@@ -1,6 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Firestore, collection, collectionData, addDoc } from "@angular/fire/firestore";
 import { Observable } from 'rxjs';
+import { User } from 'src/app/auth/user.interface';
+import { environment } from 'src/environments/environment';
+import { Class } from '../classes.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -8,16 +11,32 @@ import { Observable } from 'rxjs';
 
 
 export class ClassService {
+  apiUrl: string = environment.apiUrl;
   
-  constructor(private firestore: Firestore) { 
+  constructor(private http: HttpClient) { 
   }
   
-  getClasses(): Observable<any> {
-    const classes = collection(this.firestore, 'classes');
-    return collectionData(classes, {idField: 'id'}) as Observable<any>;
+  getTeacherClasses(teacherId: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/classes?teacher=${teacherId.toString()}`);
+  }
+  
+  getStudentClass(classId: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/classes?id=${classId.toString()}`);
   }
 
-  addClass() {
+  getStudents(classId: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/users?class=${classId.toString()}`);
+  }
 
+  getClassById(classId: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/classes?id=${classId.toString()}`);
+  }
+  
+  addClass(targetClass: Class): Observable<any> {
+    return this.http.post(`${this.apiUrl}/classes`, targetClass);
+  }
+
+  updateStudentClass(student: User) {
+    return this.http.put(`${this.apiUrl}/users?id=${student.id}`, student);
   }
 }

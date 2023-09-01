@@ -14,6 +14,8 @@ import { LoginComponent } from './auth/login/login.component';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { CommonModule } from '@angular/common';
+import { ClassesModule } from './classes/classes.module';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,7 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     BrowserAnimationsModule,
     FormsModule,
     AppRoutingModule,
@@ -31,8 +34,8 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
     LessonsModule,
     PrimengModule,
     HttpClientModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideFirestore(() => getFirestore())
+    FormsModule,
+    ClassesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

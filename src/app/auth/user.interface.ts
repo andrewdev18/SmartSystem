@@ -5,4 +5,5 @@ export interface User {
     role: string;
     name: string;
     level?: number;
+    class?: number;
 }
