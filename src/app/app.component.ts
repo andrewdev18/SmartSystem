@@ -1,38 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem, PrimeIcons } from 'primeng/api';
+import { UsersService } from './auth/users.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  constructor() {
+export class AppComponent implements OnInit {
+  isAuthenticated: boolean = false;
+  isTeacher: boolean = false;
+
+  constructor(private userService: UsersService, private router: Router) {
   }
 
-  items: MenuItem[] = [
-    {
-      label: 'Inicio',
-      icon: PrimeIcons.HOME,
-      routerLink: 'home',
-      command() {
-        console.log('Inicio')
-      },
-    },
-    {
-      label: 'Lecciones',
-      icon: PrimeIcons.BOOK,
-      routerLink: 'lessons',
-      command() {
-        console.log('Lecciones')
-      },
-    },
-    {
-      label: 'Ejercicios',
-      icon: PrimeIcons.BOOKMARK_FILL,
-      routerLink: 'games',
-      command() {
-        console.log('Ejercicios')
-      },
-    },
-  ]
+  ngOnInit(): void {
+    this.isAuthenticated = this.userService.getUser() != undefined ? true : false;
+  }
+
+  logout() {
+    this.userService.logout();
+    this.router.navigate(['login']).then(() => {
+      window.location.reload();
+    });
+  }
+
 }

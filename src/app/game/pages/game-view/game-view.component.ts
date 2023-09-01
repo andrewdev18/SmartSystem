@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { QuestionService } from '../../services/question.service';
 import { GameTree, Question, QuestionType, Topic } from '../../game.interfaces';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-game-view',
@@ -11,32 +12,36 @@ export class GameViewComponent {
   tree?: GameTree;
   topic?: Topic;
   question?: Question;
+  isCorrect?: boolean;
 
-  constructor(private questionService: QuestionService) {
+  constructor(private questionService: QuestionService, private router: Router) {
     this.tree = questionService.getTree();
     this.topic = this.tree?.topics[0];
-    // console.log('New Question', questionService.getEasierQuestion(this.topic!, this.topic!.rootNode!, questionService.getTree()!)?.difficulty)
     this.question = this.topic?.rootNode!;
   }
 
   goToLesson() {
-    console.log('Lessons module will be implemented soon');
+    this.router.navigate(['lessons/', this.topic?.title.replace(' ', '_')]);
+  }
+  
+  validateQuestion(correct: boolean) {
+    this.isCorrect = correct;
   }
 
-  getNextQuestion(isCorrect: boolean) {
+  getNextQuestion() {
     let nextContent: any;
-    if (isCorrect) {
-      console.log('Correct');
-       nextContent = this.questionService.getHarderQuestion(this.topic!, this.question!, this.tree!);
-       this.question = nextContent.question;
-       this.topic = nextContent.topic;
+    if(this.isCorrect != undefined){
+      if (this.isCorrect) {
+        nextContent = this.questionService.getHarderQuestion(this.topic!, this.question!, this.tree!);
+        this.question = nextContent.question;
+        this.topic = nextContent.topic;
       } else {
-        console.log('Incorrect');
         nextContent = this.questionService.getEasierQuestion(this.topic!, this.question!, this.tree!);
         this.question = nextContent.question;
         this.topic = nextContent.topic;
+      }
     }
-    console.log('Current difficulty', this.question?.difficulty);
+    this.isCorrect = undefined;
   }
 
   getDifficulty(): string {

@@ -5,17 +5,17 @@
       "class": 1,
       "level": 10,
       "name": "Student 1",
-      "password": "user1234"
-      "role": "student"
+      "password": "user1234",
+      "role": "student",
       "username": "student1"
     },
     {
       "id": 2,
       "name": "Teacher 1",
-      "password": "user1234"
-      "role": "teacher"
+      "password": "user1234",
+      "role": "teacher",
       "username": "teacher1"
-    },
+    }
   ],
   "classes": [
     {

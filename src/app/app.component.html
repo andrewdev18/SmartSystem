@@ -1,13 +1,18 @@
-<p-menubar [model]="items">    
+<!-- <p-menubar [model]="items">    
     <ng-template pTemplate="end">
         <p-button label="Salir" icon="pi pi-sign-out" styleClass="p-button-secondary"></p-button>
     </ng-template>
-</p-menubar>
+</p-menubar> -->
 
-<!-- <div class="flex flex-wrap justify-content-center mt-5">
-    <h1 class="w-full">Welcome to the app. Let's start learning!</h1>
-    <p class="w-full">Currently we are working on the app.</p>
-</div> -->
+<div *ngIf="isAuthenticated" class="topnav flex flex-wrap align-items-center">
+    <a [routerLink]="['/']">Inicio</a>
+    <a [routerLink]="['/lessons']">Lessons</a>
+    <a [routerLink]="['/games']">Games</a>
+    <a [routerLink]="['/classes']">Classes</a>
+    <span style="flex: 1 1 auto;"></span>
+    <h2 class="m-0 mr-3">Smart English</h2>
+    <p-button class="mx-2" label="Logout" (onClick)="logout()" styleClass="p-button-secondary"></p-button>
+</div>
 
 <router-outlet></router-outlet>
 

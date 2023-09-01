@@ -1,0 +1,11 @@
+<div class="card p-5">
+    <h1>Lesson: {{topic?.title}}</h1>
+    <p>{{topic?.content}}</p>
+    <p-card header="Examples" styleClass="mt-5 border-round-xl">
+        <div class="flex flex-wrap px-2">
+            <div *ngFor="let item of topic?.examples; let index = index" class="w-6 font-bold">
+                <p>{{index + 1}}. {{item}}</p>
+            </div>
+        </div>
+    </p-card>
+</div>

@@ -1,5 +1,5 @@
-import { Injectable, createEnvironmentInjector } from '@angular/core';
-import * as data from '../resources/questions';
+import { Injectable } from '@angular/core';
+import * as data from '../../../assets/questions';
 import { GameTree, Question, QuestionType, Topic } from '../game.interfaces';
 
 @Injectable({
@@ -8,7 +8,7 @@ import { GameTree, Question, QuestionType, Topic } from '../game.interfaces';
 
 export class QuestionService {
   tree: GameTree = { topics: [] };
-  questions: Question[][] = [data.qPresentSimple, data.qPresentContinuous];
+  questions: Question[][] = data.questions;
 
   constructor() {
     this.getTopics();
@@ -171,8 +171,6 @@ export class QuestionService {
     let newQuestion: Question | undefined;
     let newTopic: Topic = currentTopic;
 
-    console.log('Current topic:', currentTopic.title);
-
     //if question was hard enough then pass to a harder topic
     if (currentQuestion.difficulty > 0.75 || !currentQuestion.harderQuestion) {
       console.log('calling from here');
@@ -252,7 +250,6 @@ export class QuestionService {
         }
       });
     }
-    console.log('Changing to', easier ? 'easier' : 'harder', 'topic - from', currentTopic.difficulty, 'to', newTopic.difficulty);
     return newTopic;
   }
 }

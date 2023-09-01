@@ -1,0 +1,12 @@
+<h1 class="ml-2">List of topics</h1>
+
+<div class="flex flex-wrap">
+    <div class="flex flex-wrap p-2 w-6" *ngFor="let topic of topics">
+        <div class="flex flex-wrap w-full p-3 surface-card border-round-lg aling-items-center">
+            <h3 class="my-2">{{topic.title}}</h3>
+            <p-tag styleClass="mt-2 ml-2" [value]="getDifficulty(topic)" [severity]="getSeverity(topic)"></p-tag>
+            <span style="flex: 1 1 auto;"></span>
+            <p-button label="Watch lesson" icon="pi pi-book" (onClick)="goToLesson(topic)"></p-button>
+        </div>
+    </div>
+</div>

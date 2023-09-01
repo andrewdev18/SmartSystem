@@ -1,14 +1,22 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
 import { GameViewComponent } from './game/pages/game-view/game-view.component';
-import { MainComponent } from './lessons/pages/main/main.component';
+import { MainComponent as LessonListComponent } from './lessons/pages/lesson-list/lesson-list.component';
 import { HomeComponent } from './home/home.component';
+import { LessonViewComponent } from './lessons/pages/lesson-view/lesson-view.component';
+import { LoginComponent } from './auth/login/login.component';
+import { LogedInGuard } from './auth/loged-in.guard';
+import { AuthGuard } from './auth/auth.guard';
+import { ClassListComponent } from './classes/pages/class-list/class-list.component';
+import { TeacherGuardGuard } from './auth/teacher-guard.guard';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent, pathMatch: 'full' },
-  { path: 'lessons', component: MainComponent },
-  { path: 'games', component: GameViewComponent },
+  { path: 'home', component: HomeComponent, pathMatch: 'full', canActivate: [AuthGuard] },
+  { path: 'lessons', component: LessonListComponent, canActivate: [AuthGuard] },
+  { path: 'lessons/:topic', component: LessonViewComponent, canActivate: [AuthGuard] },
+  { path: 'games', component: GameViewComponent, canActivate: [AuthGuard] },
+  { path: 'classes', component: ClassListComponent, canActivate: [AuthGuard, TeacherGuardGuard] },
+  { path: 'login', component: LoginComponent, canActivate: [LogedInGuard] },
   { path: '**', redirectTo: 'home' }
 ];
 

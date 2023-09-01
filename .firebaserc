@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "englishsmartsys": {
+      "hosting": {
+        "SmartSystem": [
+          "englishsmartsys"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "englishsmartsys"
+  }
+}

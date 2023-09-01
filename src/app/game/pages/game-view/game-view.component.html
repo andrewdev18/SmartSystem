@@ -1,7 +1,7 @@
-<div class="flex flex-wrap">
+<div class="flex flex-wrap px-3">
     <div class="w-6">
-        <h2 style="margin-left: 1rem;">Exercise</h2>
-        <h3 style="margin-left: 1rem;">Topic: {{ topic!.title }}</h3>
+        <h2>Exercise</h2>
+        <h3>Topic: {{ topic!.title }}</h3>
     </div>
     <div class="w-6 justify-content-right text-right">
         <div class="flex flex-wrap mr-1 justify-content-end align-content-center">
@@ -15,24 +15,40 @@
 
 <span [ngSwitch]="question?.type">
     <div *ngSwitchCase="0">
-        <app-word-complete [question]="question!" (onResolve)="getNextQuestion($event)"></app-word-complete>
+        <app-word-complete [question]="question!" (onResolve)="validateQuestion($event)"></app-word-complete>
     </div>
     <div *ngSwitchCase="1">
-        <app-choose-option [question]="question!" (onResolve)="getNextQuestion($event)"></app-choose-option>
+        <app-choose-option [question]="question!" (onResolve)="validateQuestion($event)"></app-choose-option>
     </div>
     <div *ngSwitchCase="2">
-        <app-sentece-sort [question]="question!" (onResolve)="getNextQuestion($event)"></app-sentece-sort>
+        <app-sentece-sort [question]="question!" (onResolve)="validateQuestion($event)"></app-sentece-sort>
     </div>
     <div *ngSwitchCase="3">
-        <app-select-one [question]="question!" (onResolve)="getNextQuestion($event)"></app-select-one>
+        <app-select-one [question]="question!" (onResolve)="validateQuestion($event)"></app-select-one>
     </div>
     <div *ngSwitchDefault>
         <p>No se ha encontrado una pregunta</p>
     </div>
 </span>
-
-
 <hr style="margin-top: 2rem; margin-bottom: 2rem;">
-<div style="display: flex; justify-content: center">
-    <p-button label="Watch lesson" styleClass="p-button-secondary" (onClick)="goToLesson()"></p-button>
+
+
+<div *ngIf="isCorrect != undefined" class="flex flex-wrap justify-content-center my-5">
+    <div *ngIf="isCorrect; else wrong" class="result bg-green-400">
+        <span class="pi pi-check"></span>
+        <span>Correct</span>
+    </div>
+    <ng-template #wrong>
+        <div class="result bg-red-500">
+            <span class="pi pi-times"></span>
+            <span>Wrong</span>
+        </div>
+    </ng-template>
+    <p-button styleClass="p-button-secondary p-button-text" label="Next" icon="pi pi-caret-right" iconPos="right"
+        (onClick)="getNextQuestion()"></p-button>
+    <hr class="mx-3 my-0">
+    <div style="display: flex; justify-content: center">
+        <p-button label="Watch lesson" styleClass="p-button-secondary" icon="pi pi-eye"
+            (onClick)="goToLesson()"></p-button>
+    </div>
 </div>
