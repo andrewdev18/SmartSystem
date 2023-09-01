@@ -1,0 +1,27 @@
+{
+  users: [
+    {
+      id: 1,
+      class: 1,
+      level: 10,
+      name: "Student 1",
+      password: "user1234"
+      role: "student"
+      username: "student1"
+    },
+    {
+      id: 2,
+      name: "Teacher 1",
+      password: "user1234"
+      role: "teacher"
+      username: "teacher1"
+    },
+  ],
+  classes: [
+    {
+      id: 1,
+      name: "1ro BGU",
+      teacher: 1
+    }
+  ]
+}
