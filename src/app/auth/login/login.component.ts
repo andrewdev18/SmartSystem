@@ -11,15 +11,24 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   username: string = '';
   pass: string = '';
+  user: User[] = [];
 
   constructor(private userService: UsersService, private router: Router) { }
 
   login() {
-    if (this.userService.login(this.username, this.pass)) {
-      this.router.navigate(['home']);
-    } else {
-      alert('Invalid credentials');
-    }
+    this.userService.loginUser(this.username, this.pass).subscribe(res => {
+      console.log(res);
+      this.user = <User[]>res;
+      if(this.user.length > 0)
+      {
+        sessionStorage.setItem("user", JSON.stringify(this.user[0]));
+        this.router.navigate(['home']).then(() => {
+          window.location.reload();
+        });
+      } else {
+        alert('Invalid credentials');
+      }
+    });
   }
 
   loginStudent() {

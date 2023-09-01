@@ -48,12 +48,12 @@
     {
       "id": 1,
       "name": "1ro BGU",
-      "teacher": 1
+      "teacher": 2
     },
     {
       "id": 2,
       "name": "2do BGU",
-      "teacher": 1
+      "teacher": 2
     }
   ]
 }

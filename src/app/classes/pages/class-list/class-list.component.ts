@@ -24,6 +24,7 @@ export class ClassListComponent implements OnInit {
     this.user = this.userService.getUser();
     if(this.user) {
       if(this.user.role == 'teacher') {
+        console.log(this.user);
         this.classService.getTeacherClasses(this.user.id!).subscribe( res => {
           this.classes = res;
         });
