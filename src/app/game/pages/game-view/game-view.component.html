@@ -1,4 +1,4 @@
-<div class="flex flex-wrap px-3">
+<div class="flex flex-wrap px-3" *ngIf="attemps > 0">
     <div class="w-6">
         <h2>Exercise</h2>
         <h3>Topic: {{ topic!.title }}</h3>
@@ -6,14 +6,15 @@
     <div class="w-6 justify-content-right text-right">
         <div class="flex flex-wrap mr-1 justify-content-end align-content-center">
             <h2 class="inline mr-2 mb-1">Topic level: </h2>
-            <p-tag styleClass="mt-4" [value]="getDifficulty()" [severity]="getSeverity()"></p-tag>
+            <p-tag styleClass="mt-4" [value]="getDifficulty(topic!.difficulty)"
+                [severity]="getSeverity(getDifficulty(topic!.difficulty))"></p-tag>
         </div>
         <p style="margin-right: 1rem;">Question Difficulty: {{ question!.difficulty * 100 | number:'1.0-0' }}</p>
     </div>
 </div>
 <hr class="mt-1 mb-5">
 
-<span [ngSwitch]="question?.type">
+<span [ngSwitch]="question?.type" *ngIf="attemps > 0; else finish">
     <div *ngSwitchCase="0">
         <app-word-complete [question]="question!" (onResolve)="validateQuestion($event)"></app-word-complete>
     </div>
@@ -27,11 +28,24 @@
         <app-select-one [question]="question!" (onResolve)="validateQuestion($event)"></app-select-one>
     </div>
     <div *ngSwitchDefault>
-        <p>No se ha encontrado una pregunta</p>
+        <p>No question found</p>
     </div>
 </span>
+
+<ng-template #finish>
+    <h1 class="text-center">Game finished</h1>
+    <h2 class="text-center">Your skill points: {{user.student!.level}} <p-tag styleClass="mt-4"
+            [value]="getDifficulty(user.student!.level/100)"
+            [severity]="getSeverity(getDifficulty(user.student!.level/100))"></p-tag> </h2>
+</ng-template>
+
 <hr style="margin-top: 2rem; margin-bottom: 2rem;">
 
+<div class="text-center" *ngIf="attemps > 0">
+    <span class="text-center text-lg">Your skills progress: <p-tag styleClass="mt-4"
+            [value]="getDifficulty(user.student!.level/100)"
+            [severity]="getSeverity(getDifficulty(user.student!.level/100))"></p-tag> {{user.student!.level}}/100</span>
+</div>
 
 <div *ngIf="isCorrect != undefined" class="flex flex-wrap justify-content-center my-5">
     <div *ngIf="isCorrect; else wrong" class="result bg-green-400">

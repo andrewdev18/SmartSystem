@@ -1,9 +1,9 @@
 <div class="flex align-items-center">
     <h1 class="inline ml-3">Classes</h1>
     <span style="flex: 1 1 auto;"></span>
-    <p-button *ngIf="user?.role == 'teacher'" label="Nueva clase" icon="pi pi-plus" styleClass="mr-3"
+    <p-button *ngIf="user?.role == 'teacher' && false" label="Nueva clase" icon="pi pi-plus" styleClass="mr-3"
         (onClick)="goToRegister()"></p-button>
-    <p-button *ngIf="user?.role == 'student'" label="Cambiar clase" icon="pi pi-sync" styleClass="mr-3"
+    <p-button *ngIf="user?.role == 'student' && false" label="Cambiar clase" icon="pi pi-sync" styleClass="mr-3"
         (onClick)="switchDialog()"></p-button>
 </div>
 

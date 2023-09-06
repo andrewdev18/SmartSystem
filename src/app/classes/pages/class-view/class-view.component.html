@@ -4,8 +4,9 @@
         <div class="border-white border-solid border-round-md p-3 flex align-items-center">
             <h2 class="my-1 inline">{{student.name}}</h2>
             <span style="flex: 1 1 auto;"></span>
-            <h3 class="my-1 inline">Level: </h3>
-            <h4 class="my-1 inline w-2rem text-right">{{student.level}}</h4>
+            <h3 class="my-1 inline">Skills: </h3>
+            <!-- <h4 class="my-1 inline w-2rem text-right">{{student.student!.level}}</h4> -->
+            <p-tag styleClass="mt-2 ml-2" [value]="getDifficulty(student.student!.level)" [severity]="getSeverity(student.student!.level)"></p-tag>
         </div>
     </div>
 </div>

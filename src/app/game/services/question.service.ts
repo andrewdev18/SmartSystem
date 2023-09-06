@@ -164,7 +164,8 @@ export class QuestionService {
       }
     }
 
-    return { question: { ...newQuestion }, topic: { ...newTopic } };
+    let qst: any = { question: { ...newQuestion }, topic: { ...newTopic } };
+    return { ...qst }
   }
 
   public getHarderQuestion(currentTopic: Topic, currentQuestion: Question, tree: GameTree): { question: Question, topic: Topic } | undefined {
@@ -229,8 +230,8 @@ export class QuestionService {
         }
       }
     }
-
-    return { question: { ...newQuestion }, topic: { ...newTopic } };
+    let qst: any = { question: { ...newQuestion }, topic: { ...newTopic } };
+    return { ...qst }
   }
 
   private changeTopic(easier: boolean, currentTopic: Topic, topics: Topic[]): Topic {

@@ -1,0 +1,28 @@
+<h1 class="w-full text-center">English SmartSys</h1>
+
+<div class="flex justify-content-center">
+    <div class="flex flex-wrap justify-content-center w-30rem border-solid surface-border border-round-md p-3 gap-3">
+        <h2 class="w-full text-center">Register as a Student</h2>
+        <div class="flex flex-column gap-2 w-8">
+            <label htmlFor="name">Name</label>
+            <input pInputText id="name" aria-describedby="username-help" [(ngModel)]="name" [maxlength]="50" />
+        </div>
+        <div class="flex flex-column gap-2 w-8">
+            <label htmlFor="age">Age</label>
+            <p-inputNumber id="age" [min]="7" [max]="99" [maxlength]="2" [(ngModel)]="age"></p-inputNumber>
+        </div>
+        <div class="flex flex-column gap-2 w-8">
+            <label htmlFor="username">Username</label>
+            <input pInputText id="username" aria-describedby="username-help" [(ngModel)]="username" [maxlength]="15" />
+        </div>
+        <div class="flex flex-column gap-2 w-8">
+            <label htmlFor="username">Username</label>
+            <p-password [(ngModel)]="password" [maxlength]="15" [toggleMask]="true" [feedback]="false" inputStyleClass="w-full"></p-password>
+            <!-- <input pInputText id="username" aria-describedby="username-help" [(ngModel)]="username" [maxlength]="15" /> -->
+        </div>
+
+        <div class="text-center w-8 my-3">
+            <p-button label="Register" styleClass="w-6" (onClick)="register()"></p-button>
+        </div>
+    </div>
+</div>

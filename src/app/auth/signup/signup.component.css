@@ -1,0 +1,7 @@
+:host ::ng-deep .p-inputnumber {
+    width: 100%;
+}
+
+:host ::ng-deep .p-password, input .p-inputtext {
+    width: 100%;
+}

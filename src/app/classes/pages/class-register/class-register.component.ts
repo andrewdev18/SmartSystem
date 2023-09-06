@@ -10,10 +10,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./class-register.component.css']
 })
 export class ClassRegisterComponent {
-  class: Class = { name: '', teacher: 0 };
+  class: Class = { name: '', teacherId: 0 };
 
   constructor(private classService: ClassService, private userService: UsersService, private router: Router) {
-    this.class.teacher = this.userService.getUser()!.id!;
+    this.class.teacherId = this.userService.getUser()!.id!;
   }
 
   register() {

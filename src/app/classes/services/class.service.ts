@@ -17,19 +17,19 @@ export class ClassService {
   }
   
   getTeacherClasses(teacherId: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/classes?teacher=${teacherId.toString()}`);
+    return this.http.get(`${this.apiUrl}/class/teacher/${teacherId.toString()}`);
   }
   
   getStudentClass(classId: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/classes?id=${classId.toString()}`);
+    return this.http.get(`${this.apiUrl}/class/${classId.toString()}`);
   }
 
   getStudents(classId: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/users?class=${classId.toString()}`);
+    return this.http.get(`${this.apiUrl}/class/students/${classId.toString()}`);
   }
 
   getClassById(classId: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/classes?id=${classId.toString()}`);
+    return this.http.get(`${this.apiUrl}/class/${classId.toString()}`);
   }
   
   addClass(targetClass: Class): Observable<any> {

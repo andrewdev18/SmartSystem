@@ -11,17 +11,21 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   username: string = '';
   pass: string = '';
-  user: User[] = [];
+  user!: User;
 
   constructor(private userService: UsersService, private router: Router) { }
 
   login() {
-    this.userService.loginUser(this.username, this.pass).subscribe(res => {
+    let credentials = { username: this.username, password: this.pass }
+    this.userService.loginUser(credentials).subscribe(res => {
       console.log(res);
-      this.user = <User[]>res;
-      if(this.user.length > 0)
-      {
-        sessionStorage.setItem("user", JSON.stringify(this.user[0]));
+      this.user = <User>res;
+      if (this.user) {
+        if (this.user.role == 'student') {
+          let std: any = this.user.student;
+          this.user.student = std[0];
+        }
+        sessionStorage.setItem("user", JSON.stringify(this.user));
         this.router.navigate(['home']).then(() => {
           window.location.reload();
         });
@@ -32,7 +36,7 @@ export class LoginComponent {
   }
 
   loginStudent() {
-    let user: User = { id: 2, username: 'student1', name: 'Student 1', role: 'student', class: 1 };
+    let user: User = { id: 2, username: 'student1', name: 'Student 1', role: 'student' };
     this.userService.loginTemp(user);
     this.router.navigate(['home']).then(() => {
       window.location.reload();

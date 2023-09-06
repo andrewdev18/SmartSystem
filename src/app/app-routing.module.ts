@@ -11,6 +11,7 @@ import { ClassListComponent } from './classes/pages/class-list/class-list.compon
 import { TeacherGuardGuard } from './auth/teacher-guard.guard';
 import { ClassRegisterComponent } from './classes/pages/class-register/class-register.component';
 import { ClassViewComponent } from './classes/pages/class-view/class-view.component';
+import { SignupComponent } from './auth/signup/signup.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full', canActivate: [AuthGuard] },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'classes/register', component: ClassRegisterComponent, canActivate: [AuthGuard, TeacherGuardGuard] },
   { path: 'classes/:class', component: ClassViewComponent, canActivate: [AuthGuard, TeacherGuardGuard] },
   { path: 'login', component: LoginComponent, canActivate: [LogedInGuard] },
+  { path: 'register', component: SignupComponent, canActivate: [LogedInGuard] },
   { path: '**', redirectTo: 'home' }
 ];
 

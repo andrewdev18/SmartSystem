@@ -11,28 +11,28 @@ export class UsersService {
 
   constructor(private http: HttpClient) { }
 
-  loginUser(user: string, pass: string) {
-    return this.http.get(`${this.apiUrl}/users?username=${user}&password=${pass}`)
+  loginUser(credentials: { username: string, password: string }) {
+    return this.http.post(`${this.apiUrl}/user/login`, credentials);
   }
 
-  login(user: string, pass: string) {
-    let currentUser: any;
-    this.loginUser(user, pass).subscribe(res => {
-      currentUser = res;
-    });
-    if(currentUser.length > 0) {
-      sessionStorage.setItem("user", JSON.stringify(currentUser));
-      return true;
-    }
-    return false;
-  }
+  // login(user: string, pass: string) {
+  //   let currentUser: any;
+  //   this.loginUser(user, pass).subscribe(res => {
+  //     currentUser = res;
+  //   });
+  //   if (currentUser.length > 0) {
+  //     sessionStorage.setItem("user", JSON.stringify(currentUser));
+  //     return true;
+  //   }
+  //   return false;
+  // }
 
   loginTemp(user: User) {
     sessionStorage.setItem("user", JSON.stringify(user));
   }
 
-  getUser(): User | undefined {
-    let user: User | undefined;
+  getUser(): any {
+    let user: any;
     let data: string | null = sessionStorage.getItem("user")!;
     if (data != null) {
       user = JSON.parse(data);
@@ -42,5 +42,9 @@ export class UsersService {
 
   logout() {
     sessionStorage.removeItem("user");
+  }
+
+  register(user: any) {
+    return this.http.post(`${this.apiUrl}/user/register`, user);
   }
 }
