@@ -102,13 +102,31 @@ export class QuestionService {
     }
   }
 
-  public getEasierQuestion(currentTopic: Topic, currentQuestion: Question, tree: GameTree): { question: Question, topic: Topic } | undefined {
+  public getInitialQuestion(lvl: number): { question: Question, topic: Topic } | undefined {
+    if (this.tree.topics.length == 0) {
+      return undefined;
+    }
+
+    let newTopic: Topic = this.tree.topics[0];
+
+    this.tree.topics.forEach(topic => {
+      if (Math.abs(topic.difficulty - lvl / 100) <= Math.abs(newTopic.difficulty - lvl / 100)) {
+        newTopic = { ...topic };
+      }
+    });
+
+    let newQuestion: Question = newTopic.rootNode!;
+
+    return { question: newQuestion, topic: newTopic };
+  }
+
+  public getEasierQuestion(currentTopic: Topic, currentQuestion: Question): { question: Question, topic: Topic } | undefined {
     let newQuestion: Question | undefined;
-    let newTopic: Topic = currentTopic;
+    let newTopic: Topic = this.tree.topics[0];
 
     //if question was too easy then pass to an easier topic
     if (currentQuestion.difficulty < 0.2 || !currentQuestion.easierQuestion) {
-      newTopic = this.changeTopic(true, currentTopic, tree.topics);
+      newTopic = this.changeTopic(true, currentTopic, this.tree.topics);
     }
 
     //Setting new expected difficulty
@@ -153,7 +171,7 @@ export class QuestionService {
             }
           }
         } else {
-          let candidateTopic: Topic = this.changeTopic(true, currentTopic, tree.topics);
+          let candidateTopic: Topic = this.changeTopic(true, currentTopic, this.tree.topics);
           if (JSON.stringify(candidateTopic) === JSON.stringify(currentTopic)) {
             keepSearching = false;
           } else {
@@ -168,14 +186,13 @@ export class QuestionService {
     return { ...qst }
   }
 
-  public getHarderQuestion(currentTopic: Topic, currentQuestion: Question, tree: GameTree): { question: Question, topic: Topic } | undefined {
+  public getHarderQuestion(currentTopic: Topic, currentQuestion: Question): { question: Question, topic: Topic } | undefined {
     let newQuestion: Question | undefined;
-    let newTopic: Topic = currentTopic;
+    let newTopic: Topic = this.tree.topics[0];
 
     //if question was hard enough then pass to a harder topic
     if (currentQuestion.difficulty > 0.75 || !currentQuestion.harderQuestion) {
-      console.log('calling from here');
-      newTopic = this.changeTopic(false, currentTopic, tree.topics);
+      newTopic = this.changeTopic(false, currentTopic, this.tree.topics);
     }
 
     //Setting new expected difficulty
@@ -220,7 +237,7 @@ export class QuestionService {
             }
           }
         } else {
-          let candidateTopic: Topic = this.changeTopic(true, currentTopic, tree.topics);
+          let candidateTopic: Topic = this.changeTopic(true, currentTopic, this.tree.topics);
           if (JSON.stringify(candidateTopic) === JSON.stringify(currentTopic)) {
             keepSearching = false;
           } else {

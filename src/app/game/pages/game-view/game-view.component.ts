@@ -18,13 +18,13 @@ export class GameViewComponent {
   isCorrect?: boolean;
   user!: User;
 
-  attemps: number = 2;
+  attemps: number = 5;
 
   constructor(private questionService: QuestionService, private userService: UsersService, private gameService: GameService, private router: Router) {
-    this.tree = questionService.getTree();
-    this.topic = this.tree?.topics[0];
-    this.question = this.topic?.rootNode!;
     this.user = userService.getUser();
+    let initialContent: any = questionService.getInitialQuestion(this.user.student?.level!);
+    this.topic = { ...initialContent.topic };
+    this.question = { ...initialContent.question };
   }
 
   goToLesson() {
@@ -38,10 +38,15 @@ export class GameViewComponent {
     const increment: number = 25;
     if (this.isCorrect) {
       newStudentLevel = Math.round((newStudentLevel + (newStudentLevel + (questionLevel * increment))) / 2)
+      if (newStudentLevel > 99) {
+        newStudentLevel = 99;
+      }
     } else {
       newStudentLevel = Math.round((newStudentLevel + (newStudentLevel - (questionLevel * increment * 0.5))) / 2)
+      if (newStudentLevel < 1) {
+        newStudentLevel = 1;
+      }
     }
-    console.log({ studentId: this.user.student?.level, level: newStudentLevel });
     this.gameService.updateLevel({ studentId: this.user.student!.id!, level: newStudentLevel }).subscribe();
     this.user.student!.level = newStudentLevel;
     sessionStorage.removeItem("user");
@@ -54,13 +59,13 @@ export class GameViewComponent {
       let nextContent: any;
       if (this.isCorrect != undefined) {
         if (this.isCorrect) {
-          nextContent = this.questionService.getHarderQuestion(this.topic!, this.question!, this.tree!);
-          this.question = nextContent.question;
-          this.topic = nextContent.topic;
+          nextContent = this.questionService.getHarderQuestion(this.topic!, this.question!);
+          this.question = { ...nextContent.question };
+          this.topic = { ...nextContent.topic };
         } else {
-          nextContent = this.questionService.getEasierQuestion(this.topic!, this.question!, this.tree!);
-          this.question = nextContent.question;
-          this.topic = nextContent.topic;
+          nextContent = this.questionService.getEasierQuestion(this.topic!, this.question!);
+          this.question = { ...nextContent.question };
+          this.topic = { ...nextContent.topic };
         }
       }
       this.attemps--;

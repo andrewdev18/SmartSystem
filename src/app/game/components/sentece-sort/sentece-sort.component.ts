@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { QSortSentece, Question } from '../../game.interfaces';
 
 @Component({
@@ -7,31 +7,38 @@ import { QSortSentece, Question } from '../../game.interfaces';
   styleUrls: ['./sentece-sort.component.css']
 })
 export class SenteceSortComponent implements OnInit {
+  _question?: Question;
   content: Answer[] = [];
   answers: Answer[] = [];
 
   draggedWord: Answer | undefined | null;
+  checked: boolean = false;
 
   @Output() onResolve: EventEmitter<any> = new EventEmitter();
+  @Output() questionChange = new EventEmitter<Question | undefined>();
 
-  constructor() {
+  constructor(private changesDetector: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
   }
 
   @Input() set question(qst: Question) {
-    let questions: QSortSentece[] = <QSortSentece[]>(qst.content!);
+    this._question = { ...qst };
     this.content = [];
+    this.answers = [];
     let index: number = 0;
     let rnd: number = 0;
-    while (questions.length > 0) {
-      rnd = Math.round((questions.length - 1) * Math.random());
-      this.content.push({ index: index, word: questions[rnd] });
-      questions.splice(rnd, 1);
-      index++;
+    if (this._question.content) {
+      while (this._question.content!.length > 0) {
+        rnd = Math.round((this._question.content!.length - 1) * Math.random());
+        this.content.push({ index: index, word: <QSortSentece>this._question.content![rnd] });
+        this._question.content!.splice(rnd, 1);
+        index++;
+      }
     }
     this.setAnswerBoxes();
+    this.checked = false;
   }
 
   setAnswerBoxes() {
@@ -46,8 +53,23 @@ export class SenteceSortComponent implements OnInit {
 
   drop(position: number) {
     if (this.draggedWord) {
-      this.answers[position].word = this.draggedWord.word;
-      this.content[this.draggedWord.index].word = undefined;
+      let aux: Answer | undefined = undefined;
+      if (this.answers[position].word?.text) {
+        console.log('target', this.answers[position]);
+        aux = { word: { ...this.answers[position].word! }, index: this.content.length - 1 };
+      }
+      this.answers[position].word = { ...this.draggedWord.word! };
+      this.content.splice(this.draggedWord.index, 1);
+      if (aux) {
+        this.content.forEach(element => {
+          if (element.index >= aux!.index) {
+            element.index--;
+          }
+        });
+        this.content.push(aux);
+        console.log('Answers', this.answers);
+        console.log('Content', this.content);
+      }
     }
   }
 
@@ -67,6 +89,7 @@ export class SenteceSortComponent implements OnInit {
     } else {
       this.onResolve.emit(false);
     }
+    this.checked = true;
   }
 }
 

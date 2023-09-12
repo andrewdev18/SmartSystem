@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { QWordComplete, Question } from '../../game.interfaces';
 
 @Component({
@@ -10,17 +10,27 @@ export class WordCompleteComponent implements OnInit {
   _question?: Question;
   content: QWordComplete[] = [];
 
-  @Output() onResolve: EventEmitter<any> = new EventEmitter();
+  checked: boolean = false;
 
-  constructor() {
+  @Output() onResolve: EventEmitter<any> = new EventEmitter();
+  @Output() questionChange = new EventEmitter<Question | undefined>();
+
+  constructor(private changesDetector: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
   }
 
-  @Input() set question(qst: Question) {
+  @Input() set question(qst: Question | undefined) {
     this._question = qst;
-    this.content = <QWordComplete[]>(this._question.content);
+    this.content = <QWordComplete[]>(this._question?.content);
+    this.checked = false;
+    this.changesDetector.detectChanges
+  }
+
+  get question() {
+    this.questionChange.emit(this._question);
+    return this._question;
   }
 
   checkAnswer() {
@@ -44,5 +54,7 @@ export class WordCompleteComponent implements OnInit {
     } else {
       this.onResolve.emit(false);
     }
+
+    this.checked = true;
   }
 }

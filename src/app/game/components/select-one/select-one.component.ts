@@ -13,6 +13,8 @@ export class SelectOneComponent implements OnInit {
   selectedOption: Option = { text: '', index: -1 };
   answerIndex: number = 1;
 
+  checked: boolean = false;
+
   @Output() onResolve: EventEmitter<any> = new EventEmitter();
 
   constructor() {
@@ -33,6 +35,7 @@ export class SelectOneComponent implements OnInit {
         });
       }
     });
+    this.checked = false;
   }
 
   setAnswerIndex(index: number) {
@@ -45,6 +48,7 @@ export class SelectOneComponent implements OnInit {
     } else {
       this.onResolve.emit(false);
     }
+    this.checked = true;
   }
 }
 

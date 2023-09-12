@@ -21,6 +21,6 @@
     </div>
 </div>
 
-<div class="w-full flex justify-content-center">
+<div class="w-full flex justify-content-center" *ngIf="!checked">
     <p-button label="Check answer" icon="pi pi-check" (onClick)="checkAnswer()"></p-button>
 </div>

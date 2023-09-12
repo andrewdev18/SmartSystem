@@ -8,6 +8,6 @@ export const environment = {
     messagingSenderId: '218414254629',
     measurementId: 'G-YELWM4Y419',
   },
-  apiUrl: "http://154.56.40.32:3000"
-  // apiUrl: "http://localhost:3000"
+  // apiUrl: "https://englishsmartsys.onrender.com"
+  apiUrl: "http://localhost:3000"
 };

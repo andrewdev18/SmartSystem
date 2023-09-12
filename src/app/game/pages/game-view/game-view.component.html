@@ -16,13 +16,13 @@
 
 <span [ngSwitch]="question?.type" *ngIf="attemps > 0; else finish">
     <div *ngSwitchCase="0">
-        <app-word-complete [question]="question!" (onResolve)="validateQuestion($event)"></app-word-complete>
+        <app-word-complete [(question)]="question!" (onResolve)="validateQuestion($event)"></app-word-complete>
     </div>
     <div *ngSwitchCase="1">
         <app-choose-option [question]="question!" (onResolve)="validateQuestion($event)"></app-choose-option>
     </div>
     <div *ngSwitchCase="2">
-        <app-sentece-sort [question]="question!" (onResolve)="validateQuestion($event)"></app-sentece-sort>
+        <app-sentece-sort [(question)]="question!" (onResolve)="validateQuestion($event)"></app-sentece-sort>
     </div>
     <div *ngSwitchCase="3">
         <app-select-one [question]="question!" (onResolve)="validateQuestion($event)"></app-select-one>
