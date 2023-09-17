@@ -12,9 +12,23 @@
         <p style="margin-right: 1rem;">Question Difficulty: {{ question!.difficulty * 100 | number:'1.0-0' }}</p>
     </div>
 </div>
-<hr class="mt-1 mb-5">
 
-<span [ngSwitch]="question?.type" *ngIf="attemps > 0; else finish">
+<hr class="mt-1 mb-0">
+
+<div *ngIf="isCorrect != undefined" class="flex flex-wrap justify-content-center h-3">
+    <div *ngIf="isCorrect; else wrong" class="result bg-green-400 w-full">
+        <span class="pi pi-check"></span>
+        <span>Correct</span>
+    </div>
+    <ng-template #wrong>
+        <div class="result bg-red-500 w-full">
+            <span class="pi pi-times"></span>
+            <span>Wrong</span>
+        </div>
+    </ng-template>
+</div>
+
+<span [ngSwitch]="question?.type" *ngIf="attemps > 0; else finish" class="mt-6">
     <div *ngSwitchCase="0">
         <app-word-complete [(question)]="question!" (onResolve)="validateQuestion($event)"></app-word-complete>
     </div>
@@ -39,26 +53,16 @@
             [severity]="getSeverity(getDifficulty(user.student!.level/100))"></p-tag> </h2>
 </ng-template>
 
-<hr style="margin-top: 2rem; margin-bottom: 2rem;">
+<hr style="margin-top: 2rem; margin-bottom: 0;">
 
-<div class="text-center" *ngIf="attemps > 0">
+<div class="text-center mt-2" *ngIf="attemps > 0">
     <span class="text-center text-lg">Your skills progress: <p-tag styleClass="mt-4"
             [value]="getDifficulty(user.student!.level/100)"
             [severity]="getSeverity(getDifficulty(user.student!.level/100))"></p-tag> {{user.student!.level}}/100</span>
 </div>
 
 <div *ngIf="isCorrect != undefined" class="flex flex-wrap justify-content-center my-5">
-    <div *ngIf="isCorrect; else wrong" class="result bg-green-400">
-        <span class="pi pi-check"></span>
-        <span>Correct</span>
-    </div>
-    <ng-template #wrong>
-        <div class="result bg-red-500">
-            <span class="pi pi-times"></span>
-            <span>Wrong</span>
-        </div>
-    </ng-template>
-    <p-button styleClass="p-button-secondary p-button-text" label="Next" icon="pi pi-caret-right" iconPos="right"
+    <p-button styleClass="p-button-info" label="Next" icon="pi pi-caret-right" iconPos="right"
         (onClick)="getNextQuestion()"></p-button>
     <hr class="mx-3 my-0">
     <div style="display: flex; justify-content: center">

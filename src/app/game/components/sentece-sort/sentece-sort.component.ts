@@ -25,23 +25,24 @@ export class SenteceSortComponent implements OnInit {
 
   @Input() set question(qst: Question) {
     this._question = { ...qst };
-    this.content = [];
-    this.answers = [];
-    let index: number = 0;
-    let rnd: number = 0;
-    if (this._question.content) {
-      while (this._question.content!.length > 0) {
-        rnd = Math.round((this._question.content!.length - 1) * Math.random());
-        this.content.push({ index: index, word: <QSortSentece>this._question.content![rnd] });
-        this._question.content!.splice(rnd, 1);
-        index++;
-      }
-    }
     this.setAnswerBoxes();
     this.checked = false;
   }
 
   setAnswerBoxes() {
+    let auxContent: any[] | undefined = [...this._question!.content!];
+    this.content = [];
+    this.answers = [];
+    let index: number = 0;
+    let rnd: number = 0;
+    if (auxContent) {
+      while (auxContent.length > 0) {
+        rnd = Math.round((auxContent.length - 1) * Math.random());
+        this.content.push({ index: index, word: <QSortSentece>auxContent[rnd] });
+        auxContent.splice(rnd, 1);
+        index++;
+      }
+    }
     this.content.forEach((element, index) => {
       this.answers.push({ word: undefined, index: index });
     });
@@ -60,15 +61,13 @@ export class SenteceSortComponent implements OnInit {
       }
       this.answers[position].word = { ...this.draggedWord.word! };
       this.content.splice(this.draggedWord.index, 1);
+      this.content.forEach(element => {
+        if (element.index >= this.draggedWord!.index) {
+          element.index--;
+        }
+      });
       if (aux) {
-        this.content.forEach(element => {
-          if (element.index >= aux!.index) {
-            element.index--;
-          }
-        });
         this.content.push(aux);
-        console.log('Answers', this.answers);
-        console.log('Content', this.content);
       }
     }
   }
@@ -90,6 +89,14 @@ export class SenteceSortComponent implements OnInit {
       this.onResolve.emit(false);
     }
     this.checked = true;
+  }
+
+  getFullAnswer() {
+    let sentence: string = '';
+    this._question?.content!.forEach(phrase => {
+      sentence = sentence + phrase.text + ' ';
+    });
+    return sentence;
   }
 }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UsersService } from '../users.service';
 import { User } from '../user.interface';
 import { Router } from '@angular/router';
@@ -15,6 +15,7 @@ export class SignupComponent implements OnInit {
   username: string = '';
   password: string = '';
 
+  @Input() isTeacher: boolean = false;
   created: boolean;
 
   constructor(private userService: UsersService, private router: Router) {
@@ -25,7 +26,12 @@ export class SignupComponent implements OnInit {
   }
 
   register() {
-    let user: User = { name: this.name, role: 'student', username: this.username, password: this.password };
+    let user: User;
+    if(this.isTeacher) {
+      user = { name: this.name, role: 'teacher', username: this.username, password: this.password }
+    } else {
+      user = { name: this.name, role: 'student', username: this.username, password: this.password }
+    }
     if (this.name.length > 0 && this.username.length > 0 && this.password.length > 0) {
       this.userService.register(user).subscribe((res: any) => {
         console.log(res);

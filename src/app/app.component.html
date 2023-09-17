@@ -7,7 +7,7 @@
 <div *ngIf="isAuthenticated" class="topnav flex flex-wrap align-items-center">
     <a [routerLink]="['/']">Inicio</a>
     <a [routerLink]="['/lessons']">Lessons</a>
-    <a [routerLink]="['/games']">Games</a>
+    <a [routerLink]="['/games']" *ngIf="!isTeacher">Games</a>
     <a [routerLink]="['/classes']">Classes</a>
     <span style="flex: 1 1 auto;"></span>
     <h2 class="m-0 mr-3">Smart English</h2>

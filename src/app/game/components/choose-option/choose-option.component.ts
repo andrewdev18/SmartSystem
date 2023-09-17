@@ -12,6 +12,8 @@ export class ChooseOptionComponent implements OnInit {
   contentList?: QChooseOption[];
   options: Options[] = [];
 
+  checked: boolean = false;
+
   @Output() onResolve: EventEmitter<any> = new EventEmitter();
 
   ngOnInit(): void {
@@ -24,6 +26,7 @@ export class ChooseOptionComponent implements OnInit {
     this._question = qst;
     this.contentList = <QChooseOption[]>(this._question.content);
     this.setOptions();
+    this.checked = false;
   }
 
   setOptions() {
@@ -43,11 +46,25 @@ export class ChooseOptionComponent implements OnInit {
   }
 
   checkAnswer(index: number) {
-    if(this.options[index].isCorrect) {
-      this.onResolve.emit(true);
-    } else {
-      this.onResolve.emit(false);
+    if (!this.checked) {
+      if (this.options[index].isCorrect) {
+        this.onResolve.emit(true);
+      } else {
+        this.onResolve.emit(false);
+      }
+      this.checked = true;
     }
+  }
+  
+  getStyleClass(index: number) {
+    if(this.checked) {
+      if (this.options[index].isCorrect) {
+        return 'border-3 border-green-500';
+      } else {
+        return 'border-3 border-red-500';
+      }
+    }
+    return '';
   }
 }
 

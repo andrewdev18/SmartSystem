@@ -17,13 +17,17 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { CommonModule } from '@angular/common';
 import { ClassesModule } from './classes/classes.module';
 import { SignupComponent } from './auth/signup/signup.component';
+import { RegisterStudentComponent } from './auth/pages/register-student/register-student.component';
+import { RegisterTeacherComponent } from './auth/pages/register-teacher/register-teacher.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    RegisterStudentComponent,
+    RegisterTeacherComponent
   ],
   imports: [
     BrowserModule,

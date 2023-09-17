@@ -5,11 +5,13 @@
     <div *ngFor="let item of contentList" class="sentence-part">
         <div *ngIf="item.isAnswer; else textElement">
             <div class="sentence-part">
-                <button pButton class="p-button-secondary justify-content-center" style="min-width: 3rem;" (click)="checkAnswer(0)">
+                <button pButton class="p-button-secondary justify-content-center bg-white" style="min-width: 3rem; color: black;"
+                    (click)="checkAnswer(0)" [ngClass]="getStyleClass(0)">
                     {{options[0].text}}
                 </button>
                 <span>/</span>
-                <button pButton class="p-button-secondary justify-content-center" style="min-width: 3rem;" (click)="checkAnswer(1)">
+                <button pButton class="p-button-secondary justify-content-center bg-white" style="min-width: 3rem; color: black;"
+                    (click)="checkAnswer(1)" [ngClass]="getStyleClass(1)">
                     {{options[1].text}}
                 </button>
             </div>
@@ -19,5 +21,22 @@
                 <span>{{item.text}}</span>
             </div>
         </ng-template>
+    </div>
+</div>
+
+<div id="correctAnswer" *ngIf="checked">
+    <hr>
+    <h2 class="text-center w-12">Correct Answer</h2>
+    <div class="sentence-container">
+        <div class="flex flex-wrap aling-content-center gap-2">
+            <div class="text-center" *ngFor="let item of contentList">
+                <div *ngIf="item.isAnswer; else text" class="border-2 border-round-lg p-2">
+                    <h3 class="m-0 text-primary">{{item.correctOpt}}</h3>
+                </div>
+                <ng-template #text>
+                    <h3 class="m-0 py-2">{{item.text}}</h3>
+                </ng-template>
+            </div>
+        </div>
     </div>
 </div>

@@ -6,10 +6,31 @@
             <span>{{item.text}}</span>
         </div>
         <ng-template class="sentence-part" #wordComplete>
-            <input type="text" pInputText [(ngModel)]="item.text"/>
+            <input type="text" pInputText [(ngModel)]="item.text" [readOnly]="checked" />
         </ng-template>
     </div>
 </div>
+
 <div style="display: flex; justify-content: center; width: 100%; margin-top: 2rem;" *ngIf="!checked">
     <p-button label="Check answer" icon="pi pi-check" (onClick)="checkAnswer()"></p-button>
+</div>
+
+<div id="correctAnswer" *ngIf="checked">
+    <hr>
+    <h2 class="text-center w-12">Correct Answer</h2>
+    <div class="sentence-container">
+        <div class="flex flex-wrap aling-content-center gap-2">
+            <div class="text-center" *ngFor="let item of content">
+                <div *ngIf="item.isAnswer; else text" class="flex gap-2 border-2 border-round-lg p-2">
+                    <div *ngFor="let ans of item.answers; let i=index">
+                        <h3 class="m-0 text-primary inline">{{ans}}</h3>
+                        <h3 class="m-0 text-primary inline" *ngIf="i < (item.answers!.length - 1)"> /</h3>
+                    </div>
+                </div>
+                <ng-template #text>
+                    <h3 class="m-0 py-2">{{item.text}}</h3>
+                </ng-template>
+            </div>
+        </div>
+    </div>
 </div>

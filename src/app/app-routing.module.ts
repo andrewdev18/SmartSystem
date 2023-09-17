@@ -11,18 +11,21 @@ import { ClassListComponent } from './classes/pages/class-list/class-list.compon
 import { TeacherGuardGuard } from './auth/teacher-guard.guard';
 import { ClassRegisterComponent } from './classes/pages/class-register/class-register.component';
 import { ClassViewComponent } from './classes/pages/class-view/class-view.component';
-import { SignupComponent } from './auth/signup/signup.component';
+import { RegisterStudentComponent } from './auth/pages/register-student/register-student.component';
+import { RegisterTeacherComponent } from './auth/pages/register-teacher/register-teacher.component';
+import { StudentGuard } from './auth/student.guard';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full', canActivate: [AuthGuard] },
   { path: 'lessons', component: LessonListComponent, canActivate: [AuthGuard] },
   { path: 'lessons/:topic', component: LessonViewComponent, canActivate: [AuthGuard] },
-  { path: 'games', component: GameViewComponent, canActivate: [AuthGuard] },
+  { path: 'games', component: GameViewComponent, canActivate: [AuthGuard, StudentGuard] },
   { path: 'classes', component: ClassListComponent, canActivate: [AuthGuard] },
   { path: 'classes/register', component: ClassRegisterComponent, canActivate: [AuthGuard, TeacherGuardGuard] },
   { path: 'classes/:class', component: ClassViewComponent, canActivate: [AuthGuard, TeacherGuardGuard] },
   { path: 'login', component: LoginComponent, canActivate: [LogedInGuard] },
-  { path: 'register', component: SignupComponent, canActivate: [LogedInGuard] },
+  { path: 'register/student', component: RegisterStudentComponent, canActivate: [LogedInGuard] },
+  { path: 'register/teacher', component: RegisterTeacherComponent, canActivate: [LogedInGuard] },
   { path: '**', redirectTo: 'home' }
 ];
 

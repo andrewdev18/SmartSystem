@@ -24,3 +24,22 @@
 <div class="w-full flex justify-content-center" *ngIf="!checked">
     <p-button label="Check answer" icon="pi pi-check" (onClick)="checkAnswer()"></p-button>
 </div>
+
+<div id="correctAnswer" *ngIf="checked">
+    <hr>
+    <h2 class="text-center w-12">Correct Answer</h2>
+    <div class="sentence-container">
+        <div class="flex flex-wrap aling-content-center gap-2">
+            <div class="text-center" *ngFor="let item of content">
+                <div *ngIf="item.isAnswer; else text" class="border-2 border-round-lg p-2">
+                    <div *ngFor="let opt of options; let i = index">
+                        <h3 class="m-0 text-primary" *ngIf="i == item.answerIndex">{{opt.text}}</h3>
+                    </div>
+                </div>
+                <ng-template #text>
+                    <h3 class="m-0 py-2">{{item.text}}</h3>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>
