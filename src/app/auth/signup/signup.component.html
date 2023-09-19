@@ -1,5 +1,7 @@
 <h1 class="w-full text-center">English SmartSys</h1>
 
+<app-loadspinner *ngIf="loading"></app-loadspinner>
+
 <div class="flex justify-content-center">
     <div class="flex flex-wrap justify-content-center w-30rem border-solid surface-border border-round-md p-3 gap-3">
         <h2 class="w-full text-center">Register as {{isTeacher ? 'Teacher' : 'Student'}}</h2>

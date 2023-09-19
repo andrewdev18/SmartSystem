@@ -10,6 +10,7 @@ import { ClassService } from '../../services/class.service';
 })
 export class ClassViewComponent implements OnInit {
   students: User[] = [];
+  loading: boolean = false;
 
   constructor(private route: ActivatedRoute, private classService: ClassService) {
     let currentClass: string = '';
@@ -23,14 +24,17 @@ export class ClassViewComponent implements OnInit {
   }
 
   getStudents(classId: number) {
+    this.loading = true;
     let tempStudents: any;
-    this.classService.getStudents(classId).subscribe((res: any[]) => {
-      tempStudents = res;
-      console.log(res);
-      res.forEach((stud: any, index: number) => {
-        this.students.push(<User>stud);
-        this.students[index].student = stud.student[0];
+    this.classService.getClassById(classId).subscribe((res: any) => {
+      // tempStudents = res;
+      // console.log(res);
+      res.students.forEach((stud: any, index: number) => {
+        let tempUsr: User = stud.user;
+        tempUsr.student = { userId: stud.user.id, level: stud.level }
+        this.students.push(tempUsr);
       });
+      this.loading = false;
     });
     console.log(this.students);
   }

@@ -9,7 +9,6 @@ import { LogedInGuard } from './auth/loged-in.guard';
 import { AuthGuard } from './auth/auth.guard';
 import { ClassListComponent } from './classes/pages/class-list/class-list.component';
 import { TeacherGuardGuard } from './auth/teacher-guard.guard';
-import { ClassRegisterComponent } from './classes/pages/class-register/class-register.component';
 import { ClassViewComponent } from './classes/pages/class-view/class-view.component';
 import { RegisterStudentComponent } from './auth/pages/register-student/register-student.component';
 import { RegisterTeacherComponent } from './auth/pages/register-teacher/register-teacher.component';
@@ -21,7 +20,6 @@ const routes: Routes = [
   { path: 'lessons/:topic', component: LessonViewComponent, canActivate: [AuthGuard] },
   { path: 'games', component: GameViewComponent, canActivate: [AuthGuard, StudentGuard] },
   { path: 'classes', component: ClassListComponent, canActivate: [AuthGuard] },
-  { path: 'classes/register', component: ClassRegisterComponent, canActivate: [AuthGuard, TeacherGuardGuard] },
   { path: 'classes/:class', component: ClassViewComponent, canActivate: [AuthGuard, TeacherGuardGuard] },
   { path: 'login', component: LoginComponent, canActivate: [LogedInGuard] },
   { path: 'register/student', component: RegisterStudentComponent, canActivate: [LogedInGuard] },

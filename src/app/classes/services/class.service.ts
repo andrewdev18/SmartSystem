@@ -12,14 +12,14 @@ import { Class } from '../classes.interface';
 
 export class ClassService {
   apiUrl: string = environment.apiUrl;
-  
-  constructor(private http: HttpClient) { 
+
+  constructor(private http: HttpClient) {
   }
-  
+
   getTeacherClasses(teacherId: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/class/teacher/${teacherId.toString()}`);
   }
-  
+
   getStudentClass(classId: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/class/${classId.toString()}`);
   }
@@ -31,12 +31,12 @@ export class ClassService {
   getClassById(classId: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/class/${classId.toString()}`);
   }
-  
+
   addClass(targetClass: Class): Observable<any> {
-    return this.http.post(`${this.apiUrl}/classes`, targetClass);
+    return this.http.post(`${this.apiUrl}/class/register`, targetClass);
   }
 
-  updateStudentClass(student: User) {
-    return this.http.put(`${this.apiUrl}/users?id=${student.id}`, student);
+  updateStudentClass(studentId: number, classId: number) {
+    return this.http.put(`${this.apiUrl}/class/updateStudent`, { studentId: studentId, classId: classId });
   }
 }

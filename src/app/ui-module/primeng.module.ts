@@ -7,9 +7,11 @@ import { ChipModule } from 'primeng/chip';
 import { DialogModule } from 'primeng/dialog';
 import { DragDropModule } from 'primeng/dragdrop';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputTextModule } from 'primeng/inputtext';
 import { MenubarModule } from 'primeng/menubar';
 import { PasswordModule } from 'primeng/password';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { TagModule } from 'primeng/tag';
 
@@ -24,9 +26,11 @@ import { TagModule } from 'primeng/tag';
     DialogModule,
     DragDropModule,
     InputNumberModule,
+    InputTextareaModule,
     InputTextModule,
     MenubarModule,
     PasswordModule,
+    ProgressSpinnerModule,
     RadioButtonModule,
     TagModule
   ]

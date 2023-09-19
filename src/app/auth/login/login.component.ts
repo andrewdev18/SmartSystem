@@ -12,10 +12,12 @@ export class LoginComponent {
   username: string = '';
   pass: string = '';
   user!: User;
+  loading: boolean = false;
 
   constructor(private userService: UsersService, private router: Router) { }
 
   login() {
+    this.loading = true;
     let credentials = { username: this.username, password: this.pass }
     this.userService.loginUser(credentials).subscribe(res => {
       console.log(res);
@@ -32,6 +34,7 @@ export class LoginComponent {
       } else {
         alert('Invalid credentials');
       }
+      this.loading = false;
     });
   }
 

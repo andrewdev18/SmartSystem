@@ -19,6 +19,7 @@ import { ClassesModule } from './classes/classes.module';
 import { SignupComponent } from './auth/signup/signup.component';
 import { RegisterStudentComponent } from './auth/pages/register-student/register-student.component';
 import { RegisterTeacherComponent } from './auth/pages/register-teacher/register-teacher.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { RegisterTeacherComponent } from './auth/pages/register-teacher/register
     PrimengModule,
     HttpClientModule,
     FormsModule,
-    ClassesModule
+    ClassesModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

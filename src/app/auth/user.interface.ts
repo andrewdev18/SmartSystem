@@ -21,6 +21,6 @@ export interface Student {
     userId: number;
     user?: User;
     level: number;
-    classId: number;
-    class: Class
+    classId?: number;
+    class?: Class
 }

@@ -10,6 +10,9 @@ export interface Topic {
     examples: string[];
     difficulty: number;
     rootNode?: Question;
+    questions?: Question[];
+    easierTopic?: Topic;
+    harderTopic?: Topic;
 }
 
 export interface Question {
@@ -19,6 +22,7 @@ export interface Question {
     difficulty: number;
     easierQuestion?: Question;
     harderQuestion?: Question;
+    topic?: Topic;
 }
 
 export enum QuestionType {

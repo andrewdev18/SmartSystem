@@ -14,6 +14,7 @@ export class SignupComponent implements OnInit {
   age?: number;
   username: string = '';
   password: string = '';
+  loading: boolean = false;
 
   @Input() isTeacher: boolean = false;
   created: boolean;
@@ -26,6 +27,7 @@ export class SignupComponent implements OnInit {
   }
 
   register() {
+    this.loading = true;
     let user: User;
     if(this.isTeacher) {
       user = { name: this.name, role: 'teacher', username: this.username, password: this.password }
@@ -41,9 +43,11 @@ export class SignupComponent implements OnInit {
         if(this.created) {
           this.router.navigate(['login']);
         }
+        this.loading = false;
       });
     } else {
       alert('Wrong data!');
+      this.loading = false;
     }
   }
 }

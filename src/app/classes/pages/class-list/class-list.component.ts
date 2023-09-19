@@ -14,60 +14,104 @@ export class ClassListComponent implements OnInit {
   user?: User;
   classes: Class[] = [];
 
-  dialogVisible: boolean = false;
-  classSearch: string = '';
+  changeVisible: boolean = false;
+  createVisible: boolean = false;
+  classSearch: number = 0;
+  searched: boolean = false;
+  loading: boolean = false;
 
   targetClass?: Class;
   classFound?: boolean;
 
+  newClass: Class;
+
   constructor(private classService: ClassService, private userService: UsersService, private router: Router) {
     let userTemp = this.userService.getUser();
     this.user = userTemp;
-    if (this.user) {
-      if (this.user.role == 'teacher') {
-        console.log(this.user);
-        this.user.teacher = <Teacher>(userTemp!.teacher[0]);
-        this.classService.getTeacherClasses(this.user.teacher!.id!).subscribe(res => {
-          this.classes = res;
-        });
-      } else {
-        this.classService.getStudentClass(this.user.student!.classId!).subscribe(res => {
-          this.classes.push(res);
-        });
-      }
+    this.newClass = { name: '', description: '', teacherId: 0 };
+    if (this.user!.role == 'teacher') {
+      this.user!.teacher = <Teacher>(userTemp!.teacher[0]);
+      this.newClass.teacherId = this.user!.teacher!.id!;
     }
-    console.log(this.classes);
+    this.getClasses();
   }
 
   ngOnInit(): void {
+  }
+
+  getClasses() {
+    this.loading = true;
+    if (this.user) {
+      if (this.user.role == 'teacher') {
+        this.classService.getTeacherClasses(this.user.teacher!.id!).subscribe(res => {
+          this.classes = res;
+          this.loading = false;
+        });
+      } else {
+        this.classes = [];
+        this.classService.getStudentClass(this.user.student!.classId!).subscribe(res => {
+          this.classes.push(res);
+          this.loading = false;
+        });
+      }
+    }
   }
 
   navigateToClass(classId: number) {
     this.router.navigate(['classes', classId]);
   }
 
-  switchDialog() {
-    this.dialogVisible = !this.dialogVisible;
+  switchChangeDialog() {
+    this.changeVisible = !this.changeVisible;
+  }
+
+  switchCreateDialog() {
+    this.createVisible = !this.createVisible;
+  }
+
+  createClass() {
+    this.classService.addClass(this.newClass).subscribe();
+    this.resetInputClasses();
+    this.getClasses();
+    this.createVisible = !this.createVisible;
+  }
+
+  resetInputClasses() {
+    this.newClass = { name: '', description: '', teacherId: this.user!.teacher!.id! };
+    this.targetClass = undefined;
   }
 
   searchClass() {
-    if (this.classSearch) {
-      this.classService.getClassById(Number.parseInt(this.classSearch)).subscribe(res => {
-        this.targetClass = res;
+    if (this.classSearch >= 0) {
+      this.classService.getClassById(this.classSearch).subscribe(res => {
+        this.targetClass = <Class>res;
+        if (this.targetClass) {
+          this.classFound = true;
+        } else {
+          this.classFound = false;
+        }
       });
     }
-    if (this.targetClass) {
-      this.classFound = true;
-    } else {
-      this.classFound = false;
-    }
+  }
+
+  resetSearch() {
+    this.classFound = false;
+    this.searched = false;
+    this.targetClass = undefined;
+    this.classSearch = 0;
   }
 
   switchClass() {
     if (this.targetClass && this.user) {
       this.user.student!.classId! = this.targetClass.id!;
-      this.classService.updateStudentClass(this.user!)
-      this.switchDialog();
+      this.classService.updateStudentClass(this.user!.id!, this.targetClass.id!).subscribe((res: any) => {
+        let userTemp: User = JSON.parse(sessionStorage.getItem("user")!);
+        userTemp.student!.classId = res.classId;
+        sessionStorage.removeItem("user");
+        sessionStorage.setItem("user", JSON.stringify(userTemp));
+      });
+      this.switchChangeDialog();
+      this.getClasses();
     }
   }
 

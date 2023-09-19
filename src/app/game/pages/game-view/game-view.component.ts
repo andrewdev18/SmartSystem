@@ -22,9 +22,13 @@ export class GameViewComponent {
 
   constructor(private questionService: QuestionService, private userService: UsersService, private gameService: GameService, private router: Router) {
     this.user = userService.getUser();
-    let initialContent: any = questionService.getInitialQuestion(this.user.student?.level!);
+    let initialContent: any = this.gameService.getFirst(this.user.student?.level! / 100);
+    this.question = { ...initialContent };
     this.topic = { ...initialContent.topic };
-    this.question = { ...initialContent.question };
+    
+    // let initialContent: any = questionService.getInitialQuestion(this.user.student?.level!);
+    // this.topic = { ...initialContent.topic };
+    // this.question = { ...initialContent.question };
   }
 
   goToLesson() {
@@ -58,14 +62,23 @@ export class GameViewComponent {
     if (this.attemps > 0) {
       let nextContent: any;
       if (this.isCorrect != undefined) {
+        let currentDiff: number = this.gameService.calculateDifficulty(this.question!.difficulty, this.topic!.difficulty);
+        console.log('desired', currentDiff);
         if (this.isCorrect) {
-          nextContent = this.questionService.getHarderQuestion(this.topic!, this.question!);
-          this.question = { ...nextContent.question };
+          nextContent = this.gameService.getHarder(currentDiff + 0.05);
+          this.question = { ...nextContent };
           this.topic = { ...nextContent.topic };
+          
+          // nextContent = this.questionService.getHarderQuestion(this.topic!, this.question!);
+          // this.question = { ...nextContent.question };
+          // this.topic = { ...nextContent.topic };
         } else {
-          nextContent = this.questionService.getEasierQuestion(this.topic!, this.question!);
-          this.question = { ...nextContent.question };
+          nextContent = this.gameService.getEasier(currentDiff - 0.05);
+          this.question = { ...nextContent };
           this.topic = { ...nextContent.topic };
+          // nextContent = this.questionService.getEasierQuestion(this.topic!, this.question!);
+          // this.question = { ...nextContent.question };
+          // this.topic = { ...nextContent.topic };
         }
       }
       this.attemps--;

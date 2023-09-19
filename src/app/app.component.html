@@ -6,12 +6,13 @@
 
 <div *ngIf="isAuthenticated" class="topnav flex flex-wrap align-items-center">
     <a [routerLink]="['/']">Inicio</a>
-    <a [routerLink]="['/lessons']">Lessons</a>
-    <a [routerLink]="['/games']" *ngIf="!isTeacher">Games</a>
-    <a [routerLink]="['/classes']">Classes</a>
+    <a [routerLink]="['/lessons']">Lecciones</a>
+    <a [routerLink]="['/games']" *ngIf="!isTeacher">Juegos</a>
+    <a [routerLink]="['/classes']">Clases</a>
     <span style="flex: 1 1 auto;"></span>
     <h2 class="m-0 mr-3">Smart English</h2>
-    <p-button class="mx-2" label="Logout" (onClick)="logout()" styleClass="p-button-secondary"></p-button>
+    <p-button class="mx-2" label="Salir" iconPos="right" icon="pi pi-chevron-circle-right" (onClick)="logout()"
+        styleClass="p-button-secondary border-800 border-3"></p-button>
 </div>
 
 <router-outlet></router-outlet>
